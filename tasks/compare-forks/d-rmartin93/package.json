@@ -1,0 +1,14 @@
+{
+  "name": "d-rmartin93",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "type": "commonjs",
+  "dependencies": {
+    "@rmartin93/exceljs-fork": "^4.4.4"
+  }
+}
