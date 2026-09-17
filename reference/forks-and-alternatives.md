@@ -11,6 +11,8 @@ It is difficult to remember them all, so I am noting some here.
 - https://github.com/hyperliskdev/exceljs `npm i @hyperliskdev/exceljs`
 - https://github.com/rmartin93/exceljs-fork `npm i @rmartin93/exceljs-fork`
 - https://github.com/xcybplx/exceljs-community `npm i exceljs-community`
+- https://github.com/senoff/exceljs (context: https://github.com/protobi/exceljs/issues/61)
+- https://github.com/nbelyh/exceljs `npm i @nbelyh/exceljs`
 
 # Buggy table fix
 

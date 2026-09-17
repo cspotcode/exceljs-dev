@@ -9,11 +9,11 @@ bcompare := "/c/Users/cspot/AppData/Local/Programs/Beyond Compare 5/BCompare.exe
 
 # Round-trip the fixture through exceljs (load + write) via the harness script.
 roundtrip fixture=fixture outdir=out_dir:
-    node {{ harness_dir }}/roundtrip.js {{ fixture }} {{ outdir }}
+    node '{{ harness_dir }}/roundtrip.js' '{{ fixture }}' '{{ outdir }}'
 
 # Unzip original + round-tripped xlsx and print a text diff of every XML part.
 diff orig=fixture roundtrip=(out_dir / "roundtrip-BookWithTable.xlsx"):
-    {{ harness_dir }}/diff.sh {{ orig }} {{ roundtrip }} {{ diff_dir }}
+    '{{ harness_dir }}/diff.sh' '{{ orig }}' '{{ roundtrip }}' '{{ diff_dir }}'
 
 # Roundtrip, then unzip both xlsx files, ready for inspection (e.g. `just task bc`).
 prep-diff: roundtrip diff
@@ -21,4 +21,9 @@ prep-diff: roundtrip diff
 # Open the unzipped original vs round-tripped XML parts side by side in Beyond Compare.
 # Requires `just task prep-diff` (or `diff`) to have been run first.
 bc: prep-diff
-    "{{ bcompare }}" "$(wslpath -w {{ diff_dir }}/orig)" "$(wslpath -w {{ diff_dir }}/roundtrip)"
+    '{{ bcompare }}' '{{ diff_dir }}/orig' '{{ diff_dir }}/roundtrip'
+
+# Same as `bc`, but for use from WSL, converting paths to Windows form first.
+# Requires `just task prep-diff` (or `diff`) to have been run first.
+bc-wsl: prep-diff
+    '{{ bcompare }}' "$(wslpath -w '{{ diff_dir }}/orig')" "$(wslpath -w '{{ diff_dir }}/roundtrip')"

@@ -19,11 +19,11 @@ unzip -o -q "$ROUNDTRIP" -d "$WORKDIR/roundtrip"
 
 SCRIPT_DIR="$(dirname "$0")"
 find "$WORKDIR/orig" "$WORKDIR/roundtrip" \( -name '*.xml' -o -name '*.rels' \) -print0 \
-  | xargs -0 python3 "$SCRIPT_DIR/prettify-xml.py"
+  | xargs -0 uv run python "$SCRIPT_DIR/prettify-xml.py"
 
 # Attribute order isn't meaningful per the XML spec, so re-order roundtrip's
 # attributes to match orig's, keeping diffs focused on real differences.
-python3 "$SCRIPT_DIR/reorder-attrs.py" "$WORKDIR/orig" "$WORKDIR/roundtrip"
+uv run python "$SCRIPT_DIR/reorder-attrs.py" "$WORKDIR/orig" "$WORKDIR/roundtrip"
 
 echo "=== File listing diff ==="
 diff <(cd "$WORKDIR/orig" && find . -type f | sort) \
